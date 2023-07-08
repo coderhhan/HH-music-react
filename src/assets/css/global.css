@@ -1,4 +1,14 @@
 
+.line {
+  margin: 0 10px;
+  color: #999;
+}
+
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .wrap-v1{
   width: 1100px;
@@ -11,5 +21,27 @@
 }
 
 .topbar_sprite{
-  background: url(../img/topbar.png);
+  background: url(../img/topbar.png) no-repeat;
+}
+
+.footer_icon{
+  background: url(../img/foot_icon.png) no-repeat;
+  background-size: 220px 220px;
+}
+
+.banner_icon{
+  background: url(../img/banner.png) no-repeat 0 9999px;
+}
+
+.header_icons{
+  background: url(../img/header_icons.png) no-repeat 0 9999px;
+}
+
+
+.cover_icons{
+  background: url(../img/coverall.png) no-repeat 0 9999px;
+}
+
+.all_icons{
+  background: url(../img/iconall.png) no-repeat 0 9999px;
 }
