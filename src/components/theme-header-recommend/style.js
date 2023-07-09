@@ -13,7 +13,7 @@ export const HeaderWrapper = styled.div`
       .title{
         display: inline-block;
         margin-bottom: 4px;
-        font-size: 20px;
+        font-size: 16px;
         text-decoration: none;
       }
       .keywords{

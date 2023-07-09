@@ -1,4 +1,4 @@
-import {getTopBanner,getHotRecommend} from "@/services/recommend"
+import {getTopBanner,getHotRecommend,getNewAlbum,getTopList} from "@/services/recommend"
 import * as ActionType  from './constants'
 
 const changeTopBannerAction = (res)=>{
@@ -14,6 +14,22 @@ const changeHotRecommendAction = (res)=>{
     hotRecommends:res.result
   }
 }
+
+const changeNewAlbumAction = (res)=>{
+  return {
+    type:ActionType.CHANGE_NEW_ALBUM,
+    newAlbums:res.albums
+  }
+}
+
+const changeTopListAction =  (res)=>{
+  return {
+    type:ActionType.CHANGE_TOP_LIST,
+    topList:res.albums
+  }
+}
+
+
 
 
 export const getTopBannerAction =()=> {
@@ -32,3 +48,25 @@ export const getHotRecommendAction =(limit)=> {
     })
   }
 }
+
+
+export const getNewAlbumAction =(limit)=> {
+  return (dispatch)=>{
+    getNewAlbum(limit).then(res=>{
+      dispatch(changeNewAlbumAction(res))
+    })
+  }
+}
+
+
+
+
+export const getTopListAction =(limit)=> {
+  return (dispatch)=>{
+    getTopList().then(res=>{
+      dispatch(changeTopListAction(res))
+    })
+  }
+}
+
+

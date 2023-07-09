@@ -13,8 +13,8 @@ const Recommend = memo((props) => {
         <LeftWrapper>
           <HotRecommend></HotRecommend>
           <div className='space-room'></div>
-          <RankingList />
           <NewAlbum />
+          <RankingList />
         </LeftWrapper>
         <RightWrapper>
           you

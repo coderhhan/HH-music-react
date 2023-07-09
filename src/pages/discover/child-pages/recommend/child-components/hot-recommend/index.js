@@ -2,7 +2,7 @@ import React, {  memo, useEffect } from 'react'
 import {useDispatch,useSelector,shallowEqual } from 'react-redux'
 
 import { getHotRecommendAction } from '../../store/actionCreators'
-import { HOT_RECOMMEND_LIMIT } from '@/common/constants'
+import { HOT_RECOMMEND_LIMIT_EIGHT } from '@/common/constants'
 
 import  HeaderWrapperRCM from '@/components/theme-header-recommend'
 import { HotRecommendWrapper } from './style'
@@ -20,7 +20,7 @@ const HotRecommend = memo((props) => {
 
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch(getHotRecommendAction(HOT_RECOMMEND_LIMIT))
+    dispatch(getHotRecommendAction(HOT_RECOMMEND_LIMIT_EIGHT))
   },[dispatch])
   
   return (

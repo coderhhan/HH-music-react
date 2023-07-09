@@ -128,6 +128,26 @@ export const dicoverMenu = [
   },
 ]
 
+//榜单
+
+export const topHeaderList = [
+  { 
+    title:'飙升榜',
+    img:'http://p4.music.126.net/pcYHpMkdC69VVvWiynNklA==/109951166952713766.jpg?param=80y80'
+  },
+  { 
+    title:'新歌榜',
+    img:'http://p3.music.126.net/wVmyNS6b_0Nn-y6AX8UbpQ==/109951166952686384.jpg?param=80y80'
+  },
+  { 
+    title:'原创榜',
+    img:'http://p3.music.126.net/iFZ_nw2V86IFk90dc50kdQ==/109951166961388699.jpg?param=80y80'
+  }
+]
+
+
+
+
 // 热门主播
 export const hotRadios = [
   {

@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { getCount,getSizeImage } from '../../utils/format-utils'
+import { getCount,getSizeImage } from '@/utils/format-utils'
 
 import SongCoverWrapper from './style'
 
@@ -11,7 +11,7 @@ const SongCover = memo((props) => {
     <SongCoverWrapper>
       <div className='cover'>
         <img src={getSizeImage(img,140)} alt={name} />
-        <a className='mask cover_icons' href={`/paylist?id=${id}`}></a>
+        <a className='mask cover_icons' href={`/paylist?id=${id}`}>{name}</a>
         <div className='bottom cover_icons'>
           <i className='icon-headset all_icons'></i>
           <span className='play-count'>{getCount(playCount)}</span>

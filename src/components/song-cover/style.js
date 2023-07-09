@@ -9,12 +9,8 @@ const SongCoverWrapper = styled.div`
       height:100%;
     }
     .mask{
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-position:0 0
+      background-position:0 0;
+      text-indent: -99999px;
     }
     .bottom{
      position: absolute;

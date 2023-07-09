@@ -4,6 +4,21 @@
   color: #999;
 }
 
+.tohide{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../img/coverall.png) no-repeat 0 9999px;
+}
+
 .flex-center{
   display: flex;
   align-items: center;
@@ -37,6 +52,9 @@
   background: url(../img/header_icons.png) no-repeat 0 9999px;
 }
 
+.opreation_icons{
+  background: url(../img/opreation_icons.png) no-repeat 0 9999px;
+}
 
 .cover_icons{
   background: url(../img/coverall.png) no-repeat 0 9999px;
@@ -44,4 +62,16 @@
 
 .all_icons{
   background: url(../img/iconall.png) no-repeat 0 9999px;
+}
+
+.top_list_bg{
+  background: url(../img/top_list.png) no-repeat;
+}
+
+.player_sprite{
+  background: url(../img/playbar.png) no-repeat 0 9999px;
+}
+
+.statbar_sprite{
+  background: url(../img/statbar.png) no-repeat 0 9999px;
 }
