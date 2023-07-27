@@ -37,9 +37,9 @@ const NewAlbum = memo(() => {
           <div className='album'>
             <Carousel ref={carouselRef} dots={false}>
                 {
-                  [0,1].map(num=>{
+                  [0,1].map((num,index)=>{
                     return (
-                      <div className='album-list'>
+                      <div className='album-list' key={index} >
                         {
                           newAlbums.slice(num*5,(num+1)*5).map(item=>{
                             return (

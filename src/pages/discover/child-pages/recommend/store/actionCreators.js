@@ -30,8 +30,6 @@ const changeTopListAction =  (res)=>{
 }
 
 
-
-
 export const getTopBannerAction =()=> {
   return (dispatch)=>{
     getTopBanner().then(res=>{

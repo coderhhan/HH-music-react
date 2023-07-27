@@ -1,7 +1,7 @@
 import React, { memo,useCallback,useEffect, useRef, useState } from 'react'
 import {useDispatch,useSelector,shallowEqual} from 'react-redux'
 
-import {  formatMinuteSecond } from '@/utils/format-utils';
+import {  formatMinuteSecond,getSizeImage } from '@/utils/format-utils';
 import { getSongDetailAction,getSongUrlDetailAction } from '../store/actionCreators'
 
 import { Slider } from 'antd';
@@ -81,7 +81,7 @@ const AppPlayerBar = memo(() => {
         </Control>
         <PlayInfo >
           <div className="image">
-              <img src="https://p2.music.126.net/OVkXDNmbk2uj6wE1KTZIwQ==/109951165203334337.jpg?param=34y34" alt="img" />
+              <img src={currentSong.al && getSizeImage(currentSong.al.picUrl,32)} alt="img" />
               <NavLink to="/discover/player" className="mask player_sprite">
               </NavLink>
           </div>
