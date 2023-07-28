@@ -89,3 +89,7 @@
 .button2_sprite{
   background: url(../img/button2.png) no-repeat 0 9999px;
 }
+
+.song-detail-bg_sprite{
+  background: url(../img/song-deatail-gb.png) repeat-y center 0;
+}

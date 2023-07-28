@@ -24,12 +24,11 @@ export const getNewAlbum = (limit)=>{
 
 
 
-export function getTopList() {
+export function getTopList(id) {
   return axios({
-    url: "/album/new",
+    url: "/playlist/detail",
     params: {
-      limit:30,
-      offset:1
+      id
     }
   })
 }

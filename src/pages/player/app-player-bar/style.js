@@ -78,6 +78,10 @@ export const PlayInfo = styled.div`
     .mask{
       background-position: 0 -80px;
     }
+    img{
+      width: 34px;
+      height: 34px;
+    }
   }
   .info{
     .song{
@@ -166,10 +170,110 @@ export const PlayInfo = styled.div`
         }
       }
   }
+
+ 
  
 `
 
 export const Operator = styled.div`
-
+   display: flex;
+   .btns-left{
+    display: flex;
+    margin-left: 100px;
+    span{
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
+      margin: 8px 2px 0 0;
+    }
+    .collect-icon{
+      background-position: -88px -163px;
+      &:hover{
+        background-position: -88px -189px;
+      }
+    }
+    .shared-icon{
+      background-position:-114px -163px;
+      &:hover{
+        background-position: -114px -189px;
+      }
+    }
+  }
+  .sound-control-box{
+    position: relative;
+    .sound-control{
+      width: 32px;
+      height: 114px;
+      position: absolute;
+      bottom: 38px;
+      left: -6px;
+      background-position: 0 -503px;
+     .ant-slider{
+       height: 80%;
+      }
+      .ant-slider-vertical{
+        margin: 11px 10px 5px  10px
+      }
+    }
+    span{
+      display: block;
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
+      margin: 8px 2px 0 0;
+    }
+    .sound-icon{
+      background-position: -2px -248px;
+      &:hover{
+        background-position: -31px -248px;
+      }
+    }
+  }
+  .btns-right{
+    display: flex;
+    padding-left: 13px;
+    background-position: -147px -238px;
+    span{
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
+      margin: 8px 2px 0 0;
+    }
+    
+    .play-type-icon{
+      background-position:${props => {
+        switch(props.sequence) {
+          case 1:
+            return "-66px -248px";
+          case 2:
+            return "-66px -344px";
+          default:
+            return "-3px -344px";
+        }
+      }};
+      &:hover{
+        background-position:${props => {
+        switch(props.sequence) {
+          case 1:
+            return "-93px -248px";
+          case 2:
+            return "-93px -344px";
+          default:
+            return "-33px -344px;";
+        }
+      }};
+      }
+    }
+    .playlist-icon{
+      width: 38px;
+      padding-left: 21px;
+      background-position: -42px -68px;
+      line-height: 27px;
+      text-align: center;
+      &:hover{
+        background-position: -42px -98px;
+      }
+    }
+  }
 `
 

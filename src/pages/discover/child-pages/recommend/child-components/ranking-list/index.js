@@ -7,6 +7,8 @@ import { topHeaderList } from '@/common/local-data'
 
 import { RankingListWrapper } from './style'
 import  HeaderWrapperRCM from '@/components/theme-header-recommend'
+import { getSongDetailAction } from '../../../../../player/store/actionCreators'
+import { getSizeImage } from '../../../../../../utils/format-utils'
 
 
 
@@ -23,6 +25,9 @@ const RankingList = memo(() => {
     dispatch(getTopListAction(HOT_RECOMMEND_LIMIT_THIRTY))
   },[dispatch])
 
+  const playSongClick = (id)=>{
+    dispatch(getSongDetailAction(id))
+  }
   return (
     <RankingListWrapper>
        <HeaderWrapperRCM 
@@ -31,16 +36,19 @@ const RankingList = memo(() => {
         />
         <div className='content top_list_bg'>
           {
-            topHeaderList.map((header,index)=>{
+            topList.map((header,index)=>{
+              if(!header.playlist){
+                return ''
+              }
               return (
-                <dl key={header.title} className="list-column">
+                <dl key={header.playlist.id} className="list-column">
                   <dt className='list-top'>
                     <div className='img-box'>
-                      <img src={header.img} alt="" />
+                      <img src={getSizeImage(header.playlist.coverImgUrl,80)} alt="" />
                       <a href="/discover/toplist?id=19723756" className='mask'></a>
                     </div>
                     <div className='title-box'>
-                      {header.title}
+                      {header.playlist.name}
                       <div className='btn-box'>
                         <i className='play-btn header_icons'></i>
                         <i className='collect-btn header_icons'></i>
@@ -50,13 +58,13 @@ const RankingList = memo(() => {
                   <dd>
                     <ol>
                       {
-                        topList.slice(index*10,(index+1)*10).map((item,indey)=>{
+                          header.playlist && header.playlist.tracks.slice(0,10).map((item,indey)=>{
                           return (
                             <li key={item.id}>
                              <span className={ `no ${(indey+1) <=3 ? 'no-top':''}`}>{indey+1}</span>
                              <a href={`/song?id=${item.id}`} className="name tohide" title={item.name}>{item.name}</a>
                              <div className='opreation-btns'>
-                                <i className='play-btn btn header_icons'></i>
+                                <i className='play-btn btn header_icons' onClick={()=>playSongClick(item.id)}></i>
                                 <i className='add-btn btn opreation_icons'></i>
                                 <i className='collect-btn btn header_icons'></i>
                              </div>

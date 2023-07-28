@@ -1,2 +1,6 @@
 export const CHANGE_CURRENT_SONG ='player/change_current_song'
 export const CHANGE_SONG_URL ='player/change_songe_url'
+export const CHANGE_PLAY_LIST ='player/change_play_list'
+export const CHANGE_CURRENT_SONG_INDEX ='player/change_current_song_index'
+export const CHANGE_PLAY_SEQUENCE ='player/change_play_sequence'
+export const CHANGE_PLAY_VOLUME ='player/change_play_volume'

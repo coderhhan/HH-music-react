@@ -25,7 +25,7 @@ const changeNewAlbumAction = (res)=>{
 const changeTopListAction =  (res)=>{
   return {
     type:ActionType.CHANGE_TOP_LIST,
-    topList:res.albums
+    topList:res
   }
 }
 
@@ -76,7 +76,8 @@ export const getNewAlbumAction =(limit)=> {
 
 export const getTopListAction =(limit)=> {
   return (dispatch)=>{
-    getTopList().then(res=>{
+    Promise.all([getTopList(19723756),getTopList(3779629),getTopList(2884035)])
+    .then(res=>{
       dispatch(changeTopListAction(res))
     })
   }
