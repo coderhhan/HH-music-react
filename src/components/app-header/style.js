@@ -35,6 +35,7 @@ const LeftWrapper = styled.div`
       display: block;
       padding: 0 19px;
       text-decoration: none;
+      color: #CCC;
       cursor: pointer;
       line-height: 70px;
       position: relative;

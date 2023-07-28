@@ -1,17 +1,12 @@
 import React, { memo } from 'react'
-import { useEffect } from 'react'
 import HotRecommend from './child-components/hot-recommend'
 import NewAlbum from './child-components/new-album'
 import RankingList from './child-components/ranking-list'
+import RightContent from './child-components/right-content'
 import TopBanner from './child-components/top-banner'
 import {RecommendWrapper,Content,RightWrapper,LeftWrapper} from './style'
 
 const Recommend = memo((props) => {
-  useEffect(()=>{
-    console.log(count)
-  },[count])
-
-
   return (
     <RecommendWrapper>
       <TopBanner/>
@@ -23,6 +18,7 @@ const Recommend = memo((props) => {
           <RankingList />
         </LeftWrapper>
         <RightWrapper>
+          <RightContent/>
         </RightWrapper>      
       </Content>
     </RecommendWrapper>

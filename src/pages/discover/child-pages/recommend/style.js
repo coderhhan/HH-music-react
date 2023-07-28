@@ -14,7 +14,7 @@ export const Content = styled.div`
 
 `
 export const LeftWrapper = styled.div`
-  padding: 20px 20px 40px;
+  padding: 20px 19px 40px;
   flex: 1;
  
 `

@@ -21,6 +21,9 @@ export const getNewAlbum = (limit)=>{
 }
 
 
+
+
+
 export function getTopList() {
   return axios({
     url: "/album/new",
@@ -30,3 +33,17 @@ export function getTopList() {
     }
   })
 }
+
+export const getTopArtists = (params)=>{
+  return axios({url:'/top/artists',params:{
+    limit:params.limit,
+    offset:params.offset
+  }})
+}
+
+export const getTopPopular = (limit)=>{
+  return axios({url:'/dj/toplist/popular',params:{
+    limit,
+  }})
+}
+

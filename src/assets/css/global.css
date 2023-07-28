@@ -30,6 +30,16 @@
   margin: 0 auto;
 }
 
+.more-btn{
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+}
+.more-btn:hover{
+  text-decoration: underline;
+}
+
+
 .wrap-v2 {
   width: 980px;
   margin: 0 auto;
@@ -74,4 +84,8 @@
 
 .statbar_sprite{
   background: url(../img/statbar.png) no-repeat 0 9999px;
+}
+
+.button2_sprite{
+  background: url(../img/button2.png) no-repeat 0 9999px;
 }

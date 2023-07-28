@@ -1,4 +1,4 @@
-import {getTopBanner,getHotRecommend,getNewAlbum,getTopList} from "@/services/recommend"
+import {getTopBanner,getHotRecommend,getNewAlbum,getTopList,getTopArtists,getTopPopular} from "@/services/recommend"
 import * as ActionType  from './constants'
 
 const changeTopBannerAction = (res)=>{
@@ -28,6 +28,21 @@ const changeTopListAction =  (res)=>{
     topList:res.albums
   }
 }
+
+const changeTopArtistsAction = (res)=>{
+  return {
+    type:ActionType.CHANGE_TOP_ARTISTS,
+    topArtists:res.artists
+  }
+}
+
+const changeTopPopularAction = (res)=>{
+  return {
+    type:ActionType.CHANGE_TOP_POPULAR,
+    topPopulars:res.data.list
+  }
+}
+
 
 
 export const getTopBannerAction =()=> {
@@ -66,5 +81,27 @@ export const getTopListAction =(limit)=> {
     })
   }
 }
+
+
+export const getTopArtistsAction =(params)=> {
+  return (dispatch)=>{
+    getTopArtists(params).then(res=>{
+      dispatch(changeTopArtistsAction(res))
+    })
+  }
+}
+
+export const getTopPopularAction =(params)=> {
+  return (dispatch)=>{
+    getTopPopular(params).then(res=>{
+      dispatch(changeTopPopularAction(res))
+    })
+  }
+}
+
+
+
+
+
 
 
