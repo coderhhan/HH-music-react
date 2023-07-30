@@ -28,9 +28,7 @@ const TopBanner = memo((props) => {
 
    //其他逻辑
   const handlebeforeChange = (from,to)=>{
-    console.log(to)
     setImage(topBanners[to].imageUrl+'?imageView&blur=40x20')
-    console.log(backgroundImage)
   }
   return (
     <TopBannerWrapper backgroundimage={backgroundImage}>

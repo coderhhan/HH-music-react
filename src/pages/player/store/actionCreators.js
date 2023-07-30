@@ -93,7 +93,6 @@ export const getSongUrlDetailAction = (params)=>{
     return getSongUrl(params)
     .then(res=>{
       dispatch(changeSongUrlDetail(res.data[0].url))
-      console.log(res.data[0].url)
     })
   }
 }

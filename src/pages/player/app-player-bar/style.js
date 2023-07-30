@@ -343,9 +343,15 @@ export const PlayListWrapper = styled.div`
         height: 100%;
         width: 553px;
         display: flex;
+        color: white;
         align-items: center;
         justify-content: space-between;
-
+        a{
+          color: #ccc;
+          &:hover{
+            color: white;
+          }
+        }
       }
       .header-right{
         font-size: 14px;

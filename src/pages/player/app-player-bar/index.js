@@ -155,7 +155,6 @@ const AppPlayerBar = memo(() => {
 
   useEffect(() => {
     if (currentLyricIndex > 0 && currentLyricIndex < 4) return;
-    console.log(currentLyricIndex)
     if (currentLyricIndex > 4) scrollTo(lyricRef.current, (currentLyricIndex - 5) * 30+40, 300)
   }, [currentLyricIndex]);
 

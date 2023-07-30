@@ -35,6 +35,7 @@ export function parseLyric(lyricString) {
 
 export const scrollTo = (element, to, duration) =>{
   if (duration <= 0) return;
+  if(!element) return
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
 
