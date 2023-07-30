@@ -6,7 +6,9 @@ const defaultState = Map({
   playSequence: 0, // 0 顺序播放 1 随机播放 2 单曲循环
   currentSong:{},
   volume:100,//音量
-  currentSongUrl:''
+  currentSongUrl:'',
+  lyric:[],
+  currentLyricIndex:0
 })
 
 const reducer = (state=defaultState,action)=>{
@@ -29,7 +31,12 @@ const reducer = (state=defaultState,action)=>{
     case ActionType.CHANGE_PLAY_VOLUME:{
       return state.set('volume',action.volume)
     }
-    
+    case ActionType.CHANGE_LYRIC:{
+      return state.set('lyric',action.lyric)
+    }
+    case ActionType.CHANGE_LYRIC_INDEX:{
+      return state.set('currentLyricIndex',action.currentLyricIndex)
+    }
     default:{
       return state
     }

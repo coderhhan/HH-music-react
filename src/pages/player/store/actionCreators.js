@@ -1,6 +1,8 @@
 
-import { getSongDetail,getSongUrl } from '@/services/player'
+import { getSongDetail,getSongUrl,getLyric } from '@/services/player'
+import { parseLyric } from '../../../utils/format-lyric'
 import *as ActionType from './constants'
+
 
 const changeSongDetail = function(currentSong){
   return {
@@ -39,6 +41,19 @@ export const changePlayVolume = function(volume){
   }
 }
 
+export const changeLyric = function(lyric){
+  return {
+    type:ActionType.CHANGE_LYRIC,
+    lyric
+  }
+}
+
+export const changeLyricIndex = function(index){
+  return {
+    type:ActionType.CHANGE_LYRIC_INDEX,
+    currentLyricIndex:index
+  }
+}
 
 
 
@@ -52,6 +67,7 @@ export const getSongDetailAction = (ids)=>{
         dispatch(changeSongDetail(playlist[index]))
         dispatch(changeCurrentSongIndex(index))
         dispatch(getSongUrlDetailAction({id:ids,level:'exhigh'}))
+        dispatch(getLyricAction(ids))
      }else{
       //不存在调接口，增加列表一条数据，改变当前播放索引
        getSongDetail(ids)
@@ -65,6 +81,7 @@ export const getSongDetailAction = (ids)=>{
           dispatch(changeCurrentSongIndex(newPlayList.length-1))
           dispatch(changeSongDetail(res.songs[0]))
           dispatch(getSongUrlDetailAction({id:ids,level:'exhigh'}))
+          dispatch(getLyricAction(ids))
         })
      }
    
@@ -122,5 +139,16 @@ export const changePlaySong = (tag)=>{
     dispatch(changeCurrentSongIndex(currentSongIndex))
     dispatch(changeSongDetail(currentSong))
     dispatch(getSongUrlDetailAction({id:currentSong.id,level:'exhigh'}))
+  }
+}
+
+
+export const getLyricAction = (id)=>{
+  return dispatch=>{
+    return getLyric(id)
+    .then(res=>{
+      const lyric = parseLyric(res.lrc.lyric)
+      dispatch(changeLyric(lyric))
+    })
   }
 }

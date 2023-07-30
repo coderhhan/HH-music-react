@@ -2,28 +2,33 @@ import React, { memo,useCallback,useEffect, useRef, useState } from 'react'
 import {useDispatch,useSelector,shallowEqual} from 'react-redux'
 
 import {  formatMinuteSecond,getSizeImage } from '@/utils/format-utils';
-import { changePlaySequenceAction, getSongDetailAction,getSongUrlDetailAction,changePlaySong,changePlayVolume} from '../store/actionCreators'
+import { changePlaySequenceAction, getSongDetailAction,getSongUrlDetailAction,changePlaySong,changePlayVolume, changeLyricIndex} from '../store/actionCreators'
 
 import { Slider,Tooltip,Popover } from 'antd';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom'
-import {Control, Operator, PlayerBarWrapper, PlayInfo} from './style'
+import {Control, Operator, PlayerBarWrapper, PlayInfo,PlayListWrapper} from './style'
+import { scrollTo } from '../../../utils/format-lyric';
 
 const AppPlayerBar = memo(() => {
 
+  const lyricRef = useRef()
   const audioRef = useRef()
+  const [sound, setSoundHide] = useState(false);
+  const [showPlayList, setShowPlayList] = useState(false);
+  const [volume,setVolume] = useState(100);
   const [currentTime, setCurrentTime] = useState(0);
   const [progress,setProgress] = useState(0)
   const [duration,setDuration]=useState(0)
   const [isPlaying,setIsPlaying] = useState(false)
   const [isDraging,setDraging] = useState(false)
-  const {currentSong,currentSongUrl,playSequence,playList,volume} = useSelector((state)=>{
+  const {currentSong,currentSongUrl,playSequence,playList,lyric,currentLyricIndex} = useSelector((state)=>{
     return {
       currentSong:state.getIn(['player','currentSong']),
       currentSongUrl:state.getIn(['player','currentSongUrl']),
       playSequence:state.getIn(['player','playSequence']),
       playList:state.getIn(['player','playList']),
-      volume:state.getIn(['player','volume']),
-      
+      lyric:state.getIn(['player','lyric']),
+      currentLyricIndex:state.getIn(['player','currentLyricIndex']),
     }
   },shallowEqual)
 
@@ -54,8 +59,7 @@ const AppPlayerBar = memo(() => {
       audioRef.current.play()
     }
   },[isPlaying,currentSongUrl])
-
-  const timeUpdate = useCallback((e)=>{
+  const timeUpdate = (e)=>{
     const currentTime = e.target.currentTime;
     if(!isDraging){
       setCurrentTime(currentTime)
@@ -64,7 +68,21 @@ const AppPlayerBar = memo(() => {
     if(currentTime * 1000 === duration) {
       dispatch(changePlaySong(1))
     }
-  },[isDraging,duration])
+    //
+    let lrcLength = lyric.length;
+    let i = 0;
+    for (; i < lrcLength; i++) {
+      const lrcTime = lyric[i].time;
+      if (currentTime * 1000 < lrcTime) {
+        break
+      }
+    }
+    const finalIndex = i - 1;
+    if (finalIndex !== currentLyricIndex) {
+      dispatch(changeLyricIndex(finalIndex));
+    }
+    
+  }
 
   const timeEnded = () => {
     if (playSequence === 2 || playList.length === 1) {
@@ -107,14 +125,53 @@ const AppPlayerBar = memo(() => {
   }
 
 
+  
+  //音量展示
+  const toggleSound = useCallback(()=>{
+    setSoundHide(!sound)
+  },[sound,setSoundHide])
   //音量
   const sliderChangeVolume = (value)=>{
     dispatch(changePlayVolume(value))
     audioRef.current.volume=value/100
+    setVolume(value)
   }
+
+  //播放列表切换音乐
+  const playSong = (e,id)=>{
+    e.stopPropagation()
+    dispatch(getSongDetailAction(id))
+  }
+  //显示播放列表
+
+  useEffect(() => {
+    // 添加监听事件
+      document.addEventListener('click', hide)
+      return () => {
+          // 销毁的时候清除监听
+          document.removeEventListener('click', hide)
+      }
+  })
+
+  useEffect(() => {
+    if (currentLyricIndex > 0 && currentLyricIndex < 4) return;
+    console.log(currentLyricIndex)
+    if (currentLyricIndex > 4) scrollTo(lyricRef.current, (currentLyricIndex - 5) * 30+40, 300)
+  }, [currentLyricIndex]);
+
+  const hide = useCallback((e)=>{
+    setShowPlayList(false)
+    e.stopPropagation()
+  },[setShowPlayList])
+
+  const handleShowPayList = useCallback((e)=>{
+    setShowPlayList(!showPlayList)
+    e.stopPropagation()
+  },[showPlayList,setShowPlayList])
   return (
-    <PlayerBarWrapper className='player_sprite'>
+    <PlayerBarWrapper className='player_sprite' onClick={(e)=>e.stopPropagation()}>
       <div className='hand'></div>
+      <div className='bg player_sprite'></div>
       <div className='wrap-v2'>
         <div className='wrap-content'>
         <Control >
@@ -131,7 +188,7 @@ const AppPlayerBar = memo(() => {
           <div className="info">
             <div className="song">
               <span className="song-name tohide">
-                <NavLink to={`/song?id=${currentSong.id}`}>
+                <NavLink to={`/discover/player?id=${currentSong.id}`}>
                     {currentSong.name}
                 </NavLink>
               </span>
@@ -160,7 +217,7 @@ const AppPlayerBar = memo(() => {
           
 
         </PlayInfo>
-        <Operator sequence={playSequence}>
+        <Operator sequence={playSequence} show={sound} volume={volume}>
          <div className='btns-left'>
             <span  className='collect-icon player_sprite'></span>
             <span  className='shared-icon player_sprite'></span>
@@ -170,13 +227,67 @@ const AppPlayerBar = memo(() => {
               <div className='sound-control player_sprite'>
                 <Slider value={volume}  onChange={sliderChangeVolume}  tooltip={{ open: false }} vertical />
               </div>
-              <span className='sound-icon player_sprite'></span>
+              <span className='sound-icon player_sprite' onClick={()=>toggleSound()}></span>
             </div>  
             <Tooltip placement="top" title={playSequenceEnum[playSequence]} arrow={true}>
               <span className='play-type-icon player_sprite' onClick={()=>handleChangePlaysequence()}></span>
             </Tooltip>
-            <span className='playlist-icon player_sprite'></span>
+
+
+            <span className='playlist-icon player_sprite' onClick={handleShowPayList}></span>
           </div>
+          {
+            showPlayList && (
+              <PlayListWrapper className='palylist' onClick={(e)=>e.stopPropagation()}>
+              <div className='palylist-header playlist_bg_sprite'>
+                <div className='header-left'>
+                 <span>播放列表（{playList.length}）</span>
+                 <span>
+                  <a href="#">收藏全部</a>
+                  <span className='line'></span>
+                  <a href="#">清除</a>
+                 </span>
+                </div>
+                <div className='header-right'>
+
+                </div>
+              </div>
+              <div className='palylist-content playlist_bg_sprite'>
+                <img src={currentSong.al && currentSong.al.picUrl} alt="" />
+                <div className='left-content'>
+                  <ul className='list'>
+                    {
+                      playList.map((song,index)=>(
+                      <li className={['list-item',currentSong.id === song.id?'active':''].join(' ')} key={song.id} onClick={(e)=>playSong(e,song.id)}>
+                        <div className='col col-1'><i className='playlist_sprite'></i></div>
+                        <div className='col col-2'>{song.name}</div>
+                        <div className='col col-3'></div>
+                        <div className='col col-4 tohide'>
+                          <NavLink to={`/artist?id=${song.id}`} title={song.ar.map(item=>item.name).join(',')}>
+                          {song.ar.map(item=>item.name).join(',')}
+                          </NavLink>
+                        </div>
+                        <div className='col col-5'>{formatMinuteSecond(song.dt)}</div>
+                        <div className='col col-6'></div>
+                      </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+                <div className='flag-content'></div>
+                <div className='right-content' ref={lyricRef}>
+                {/* currentTime */}
+                  {
+                    lyric.map((row,index)=>(
+                      <p key={row.time} className={['lyric-row',currentLyricIndex === index?'active':''].join(' ')} >{row.content}</p>
+                    ))
+                  }
+                </div>
+              </div>
+               </PlayListWrapper>
+            )
+          }
+          
         </Operator>
         <audio src={currentSongUrl} onTimeUpdate={timeUpdate} onEnded={timeEnded}  ref={audioRef} trolse='0' muted={false}></audio>
         </div>
