@@ -336,6 +336,7 @@ export const PlayListWrapper = styled.div`
       height: 40px;
       background-position:0 0;
       color: white;
+      display: flex;
       .header-left{
         box-sizing: border-box;
         padding: 0 20px 0 30px;
@@ -347,7 +348,13 @@ export const PlayListWrapper = styled.div`
 
       }
       .header-right{
+        font-size: 14px;
+        font-weight: bold;
         width: 420px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
     .palylist-content{

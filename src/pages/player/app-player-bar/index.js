@@ -249,7 +249,7 @@ const AppPlayerBar = memo(() => {
                  </span>
                 </div>
                 <div className='header-right'>
-
+                  {currentSong.name}
                 </div>
               </div>
               <div className='palylist-content playlist_bg_sprite'>

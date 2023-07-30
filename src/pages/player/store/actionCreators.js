@@ -149,6 +149,8 @@ export const getLyricAction = (id)=>{
     .then(res=>{
       const lyric = parseLyric(res.lrc.lyric)
       dispatch(changeLyric(lyric))
+      dispatch(changeLyricIndex(0))
+      
     })
   }
 }
