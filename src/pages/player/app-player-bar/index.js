@@ -5,12 +5,13 @@ import {  formatMinuteSecond,getSizeImage } from '@/utils/format-utils';
 import { changePlaySequenceAction, getSongDetailAction,getSongUrlDetailAction,changePlaySong,changePlayVolume, changeLyricIndex} from '../store/actionCreators'
 
 import { Slider,Tooltip } from 'antd';
-import { NavLink } from 'react-router-dom'
+import { NavLink,useLocation  } from 'react-router-dom'
 import { Control, Operator, PlayerBarWrapper, PlayInfo} from './style'
 import AppPlayerPanel from '../app-player-panel';
 
-const AppPlayerBar = memo(() => {
-
+const AppPlayerBar = memo((props) => {
+  
+  const location = useLocation()
   const audioRef = useRef()
   const [sound, setSoundHide] = useState(false);
   const [showPlayList, setShowPlayList] = useState(false);
@@ -37,8 +38,15 @@ const AppPlayerBar = memo(() => {
     if(currentSongUrl) {
       handleAudioPlay()
     }
+
+    
   },[currentSong,currentSongUrl])
   
+  useEffect(()=>{
+     if(sound){
+      setSoundHide(false)
+     }
+  },[location])
   //其他逻辑处理
   //播放
   const handleAudioPlay = useCallback((e)=>{
