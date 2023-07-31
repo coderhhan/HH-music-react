@@ -4,14 +4,13 @@ import {useDispatch,useSelector,shallowEqual} from 'react-redux'
 import {  formatMinuteSecond,getSizeImage } from '@/utils/format-utils';
 import { changePlaySequenceAction, getSongDetailAction,getSongUrlDetailAction,changePlaySong,changePlayVolume, changeLyricIndex} from '../store/actionCreators'
 
-import { Slider,Tooltip,Popover } from 'antd';
+import { Slider,Tooltip } from 'antd';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom'
-import {Control, Operator, PlayerBarWrapper, PlayInfo,PlayListWrapper} from './style'
-import { scrollTo } from '../../../utils/format-lyric';
+import { Control, Operator, PlayerBarWrapper, PlayInfo} from './style'
+import AppPlayerPanel from '../app-player-panel';
 
 const AppPlayerBar = memo(() => {
 
-  const lyricRef = useRef()
   const audioRef = useRef()
   const [sound, setSoundHide] = useState(false);
   const [showPlayList, setShowPlayList] = useState(false);
@@ -33,11 +32,6 @@ const AppPlayerBar = memo(() => {
   },shallowEqual)
 
   const dispatch = useDispatch()
-  useEffect(()=>{
-    // dispatch(getSongUrlDetailAction({id:2060079395,level:'exhigh'}))
-    // dispatch(getSongDetailAction(2060079395))
-  },[dispatch])
-
   useEffect(()=>{
     setDuration(currentSong.dt??0)
     if(currentSongUrl) {
@@ -124,7 +118,6 @@ const AppPlayerBar = memo(() => {
     dispatch(changePlaySong(type))
   }
 
-
   
   //音量展示
   const toggleSound = useCallback(()=>{
@@ -135,12 +128,6 @@ const AppPlayerBar = memo(() => {
     dispatch(changePlayVolume(value))
     audioRef.current.volume=value/100
     setVolume(value)
-  }
-
-  //播放列表切换音乐
-  const playSong = (e,id)=>{
-    e.stopPropagation()
-    dispatch(getSongDetailAction(id))
   }
   //显示播放列表
 
@@ -153,11 +140,6 @@ const AppPlayerBar = memo(() => {
       }
   })
 
-  useEffect(() => {
-    if (currentLyricIndex > 0 && currentLyricIndex < 4) return;
-    if (currentLyricIndex > 4) scrollTo(lyricRef.current, (currentLyricIndex - 5) * 30+40, 300)
-  }, [currentLyricIndex]);
-
   const hide = useCallback((e)=>{
     setShowPlayList(false)
     e.stopPropagation()
@@ -167,6 +149,7 @@ const AppPlayerBar = memo(() => {
     setShowPlayList(!showPlayList)
     e.stopPropagation()
   },[showPlayList,setShowPlayList])
+
   return (
     <PlayerBarWrapper className='player_sprite' onClick={(e)=>e.stopPropagation()}>
       <div className='hand'></div>
@@ -236,55 +219,7 @@ const AppPlayerBar = memo(() => {
             <span className='playlist-icon player_sprite' onClick={handleShowPayList}></span>
           </div>
           {
-            showPlayList && (
-              <PlayListWrapper className='palylist' onClick={(e)=>e.stopPropagation()}>
-              <div className='palylist-header playlist_bg_sprite'>
-                <div className='header-left'>
-                 <span>播放列表（{playList.length}）</span>
-                 <span>
-                  <a href="#">收藏全部</a>
-                  <span className='line'></span>
-                  <a href="#">清除</a>
-                 </span>
-                </div>
-                <div className='header-right'>
-                  {currentSong.name}
-                </div>
-              </div>
-              <div className='palylist-content playlist_bg_sprite'>
-                <img src={currentSong.al && currentSong.al.picUrl} alt="" />
-                <div className='left-content'>
-                  <ul className='list'>
-                    {
-                      playList.map((song,index)=>(
-                      <li className={['list-item',currentSong.id === song.id?'active':''].join(' ')} key={song.id} onClick={(e)=>playSong(e,song.id)}>
-                        <div className='col col-1'><i className='playlist_sprite'></i></div>
-                        <div className='col col-2'>{song.name}</div>
-                        <div className='col col-3'></div>
-                        <div className='col col-4 tohide'>
-                          <NavLink to={`/artist?id=${song.id}`} title={song.ar.map(item=>item.name).join(',')}>
-                          {song.ar.map(item=>item.name).join(',')}
-                          </NavLink>
-                        </div>
-                        <div className='col col-5'>{formatMinuteSecond(song.dt)}</div>
-                        <div className='col col-6'></div>
-                      </li>
-                      ))
-                    }
-                  </ul>
-                </div>
-                <div className='flag-content'></div>
-                <div className='right-content' ref={lyricRef}>
-                {/* currentTime */}
-                  {
-                    lyric.map((row,index)=>(
-                      <p key={row.time} className={['lyric-row',currentLyricIndex === index?'active':''].join(' ')} >{row.content}</p>
-                    ))
-                  }
-                </div>
-              </div>
-               </PlayListWrapper>
-            )
+            showPlayList && <AppPlayerPanel />
           }
           
         </Operator>
