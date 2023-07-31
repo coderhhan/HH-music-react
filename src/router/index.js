@@ -11,67 +11,61 @@ import Album from "../pages/discover/child-pages/album";
 import Player from "../pages/player";
 
 
-import { Redirect } from "react-router-dom";
+import { Navigate  } from "react-router-dom";
 
 
 const routes = [
   {
     path:'/', 
     exact:true,
-    render: () => (
-      <Redirect to="/discover"/>
-    )
+    element: <Navigate  to="/discover"></Navigate>
   },
   {
     path:'/discover', 
-    component:Discover,
-    routes:[
+    element: <Discover></Discover>,
+    children:[
       {
         path:'/discover',
         exact:true,
-        render:()=><Redirect to='/discover/recommend' />
+        element:<Navigate  to='/discover/recommend' ></Navigate>
       },
       {
         path:'/discover/recommend',
-        component:Recommend
+        element:<Recommend></Recommend>
       },
       {
         path:'/discover/ranking',
-        component:Ranking
+        element: <Ranking></Ranking>
       },
       {
         path:'/discover/songs',
-        component:Songs
+        element:  <Songs></Songs>
       },
       {
         path:'/discover/djradio',
-        component:Djradio
+        element: <Djradio></Djradio>
       },
       {
         path:'/discover/artist',
-        component:Artist
+        element: <Artist></Artist>
       },
       {
         path:'/discover/album',
-        component:Album
+        element: <Album></Album>
       },
       {
         path:'/discover/player',
-        component:Player
+        element: <Player></Player>
       }
     ]
   },
   {
     path:'/friend', 
-    component:Friend
-  },
-  {
-    path:'/friend', 
-    component:Friend
+    element:  <Friend></Friend>
   },
   {
     path:'/mine', 
-    component:Mine
+    element: <Mine></Mine>
   }
 ]
 

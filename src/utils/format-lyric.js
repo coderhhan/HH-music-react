@@ -38,7 +38,8 @@ export const scrollTo = (element, to, duration) =>{
   if(!element) return
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
-
+  console.log(to,element.scrollTop,difference)
+  
   setTimeout(function() {
       element.scrollTop = element.scrollTop + perTick;
       if (element.scrollTop === to) return;

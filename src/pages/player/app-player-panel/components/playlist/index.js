@@ -3,7 +3,7 @@ import PlayListWrapper from './style'
 import {useDispatch, useSelector,shallowEqual } from 'react-redux'
 import { getSongDetailAction } from '../../../store/actionCreators'
 import { formatMinuteSecond } from '../../../../../utils/format-utils'
-import { NavLink } from 'react-router-dom/cjs/react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const PlayList = memo(() => {
 

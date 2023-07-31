@@ -1,9 +1,8 @@
 
 
 import { memo } from 'react';
-import {renderRoutes} from 'react-router-config'
 import { Provider } from "react-redux";
-import {HashRouter} from 'react-router-dom'
+import {HashRouter,useRoutes} from 'react-router-dom'
 
 import store from '@/store'
 import routes from './router';
@@ -15,14 +14,15 @@ import PlayerBar from './pages/player/app-player-bar';
 
 
 export default  memo(function App() {
+  const data =   useRoutes(routes)
+  console.log(data)
   return (
     <Provider store={store}>
-      <HashRouter className="App">
         <HHAppHeader/>
-          {renderRoutes(routes)}
+          {useRoutes(routes)}
+          {/* {data} */}
         <HHAppFooter/>
         <PlayerBar />
-      </HashRouter>
     </Provider>
   );
 })

@@ -5,7 +5,7 @@ import {  formatMinuteSecond,getSizeImage } from '@/utils/format-utils';
 import { changePlaySequenceAction, getSongDetailAction,getSongUrlDetailAction,changePlaySong,changePlayVolume, changeLyricIndex} from '../store/actionCreators'
 
 import { Slider,Tooltip } from 'antd';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Control, Operator, PlayerBarWrapper, PlayInfo} from './style'
 import AppPlayerPanel from '../app-player-panel';
 
@@ -216,7 +216,9 @@ const AppPlayerBar = memo(() => {
             </Tooltip>
 
 
-            <span className='playlist-icon player_sprite' onClick={handleShowPayList}></span>
+            <span className='playlist-icon player_sprite' onClick={handleShowPayList}>
+              <a href="javaScript:;">{playList.length}</a>
+            </span>
           </div>
           {
             showPlayList && <AppPlayerPanel />

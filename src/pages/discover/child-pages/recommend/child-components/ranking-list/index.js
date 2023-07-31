@@ -1,5 +1,6 @@
 import React, { memo,useEffect } from 'react'
 import {useDispatch,useSelector,shallowEqual} from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 import { getTopListAction } from '../../store/actionCreators'
 import { HOT_RECOMMEND_LIMIT_THIRTY } from '@/common/constants'
@@ -62,7 +63,9 @@ const RankingList = memo(() => {
                           return (
                             <li key={item.id}>
                              <span className={ `no ${(indey+1) <=3 ? 'no-top':''}`}>{indey+1}</span>
-                             <a href={`/song?id=${item.id}`} className="name tohide" title={item.name}>{item.name}</a>
+                             <NavLink to={`/discover/player?id=${item.id}`} className="name tohide" title={item.name}>
+                                {item.name}
+                            </NavLink>
                              <div className='opreation-btns'>
                                 <i className='play-btn btn header_icons' onClick={()=>playSongClick(item.id)}></i>
                                 <i className='add-btn btn opreation_icons'></i>
