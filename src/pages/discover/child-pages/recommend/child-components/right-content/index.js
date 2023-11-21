@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types'
-import React, { memo,useEffect} from 'react'
-import {useDispatch,useSelector,shallowEqual} from 'react-redux'
+import React, { memo, useEffect } from 'react'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import MyInfo from '../my-info'
 import RightContentWrapper from './style'
 import { getTopArtistsAction, getTopPopularAction } from '../../store/actionCreators'
@@ -8,26 +7,26 @@ import { getSizeImage } from '../../../../../../utils/format-utils'
 
 const RightContent = memo((props) => {
 
-  const {topArtists} = useSelector((state)=>{
+  const { topArtists } = useSelector((state) => {
     return {
-      topArtists:state.getIn(['recommend','topArtists'])
+      topArtists: state.getIn(['recommend', 'topArtists'])
     }
-  },shallowEqual)
+  }, shallowEqual)
 
-  const {topPopulars} = useSelector((state)=>{
+  const { topPopulars } = useSelector((state) => {
     return {
-      topPopulars:state.getIn(['recommend','topPopulars'])
+      topPopulars: state.getIn(['recommend', 'topPopulars'])
     }
-  },shallowEqual)
+  }, shallowEqual)
 
   const dispatch = useDispatch()
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getTopArtistsAction({
-      offset:0,
-      limit:5
+      offset: 0,
+      limit: 5
     }))
     dispatch(getTopPopularAction(5))
-  },[dispatch])
+  }, [dispatch])
 
 
 
@@ -39,11 +38,11 @@ const RightContent = memo((props) => {
         <h3 className='head-row'><span className='title'>入驻歌手</span> <span className='more-btn'>查看全部 ></span></h3>
         <ul>
           {
-            topArtists.map(artis=>(
+            topArtists.map(artis => (
               <li key={artis.id} className="list-item bg">
                 <a href="#">
                   <div className='left-content'>
-                    <img src={getSizeImage(artis.img1v1Url,62)} alt="" />
+                    <img src={getSizeImage(artis.img1v1Url, 62)} alt="" />
                   </div>
                   <div className='right-content border'>
                     <h4 className='h-name'><span className='name tohide'>{artis.name}</span></h4>
@@ -51,7 +50,7 @@ const RightContent = memo((props) => {
                   </div>
                 </a>
               </li>
-              )
+            )
             )
           }
         </ul>
@@ -63,11 +62,11 @@ const RightContent = memo((props) => {
         <h3 className='head-row'><span className='title'>热门主播</span></h3>
         <ul>
           {
-            topPopulars.map(artis=>(
+            topPopulars.map(artis => (
               <li key={artis.id} className="list-item">
                 <a href="#">
                   <div className='left-content'>
-                    <img src={getSizeImage(artis.avatarUrl,40)} alt="" />
+                    <img src={getSizeImage(artis.avatarUrl, 40)} alt="" />
                   </div>
                   <div className='right-content '>
                     <h4 className='h-name tohide'><span className='name '>{artis.nickName}</span></h4>
@@ -75,12 +74,12 @@ const RightContent = memo((props) => {
                   </div>
                 </a>
               </li>
-              )
+            )
             )
           }
         </ul>
       </div>
-    
+
     </RightContentWrapper>
   )
 })

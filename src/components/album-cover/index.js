@@ -6,11 +6,11 @@ import { getSizeImage } from '@/utils/format-utils'
 import { AlbumCoverWrapper } from './style'
 
 const AlbumCover = memo((props) => {
-  const {name,img,id,artist,size,imgy,bgpositiony} = props
+  const { name, img, id, artist, size, bgpositiony } = props
   return (
     <AlbumCoverWrapper className='header_icons' size={size} bgpositiony={bgpositiony}>
       <div className='album-image'>
-        <img src={getSizeImage(img,parseInt(size))} alt="" />
+        <img src={getSizeImage(img, parseInt(size))} alt="" />
         {/* {name} */}
         <a className='mask cover_icons' href={`/album?id=${id}`}>{name}</a>
       </div>

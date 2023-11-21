@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types'
 import React, { memo } from 'react'
 import MyInfoWrapper from './style'
 
-const MyInfo = memo((props) => {
+const MyInfo = memo(() => {
   return (
     <MyInfoWrapper>
       <div className='no-login header_icons'>
