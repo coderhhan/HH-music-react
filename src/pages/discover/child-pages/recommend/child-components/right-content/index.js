@@ -38,7 +38,7 @@ const RightContent = memo((props) => {
         <h3 className='head-row'><span className='title'>入驻歌手</span> <span className='more-btn'>查看全部 ></span></h3>
         <ul>
           {
-            topArtists.map(artis => (
+            topArtists && topArtists.map(artis => (
               <li key={artis.id} className="list-item bg">
                 <a href="#">
                   <div className='left-content'>
@@ -62,7 +62,7 @@ const RightContent = memo((props) => {
         <h3 className='head-row'><span className='title'>热门主播</span></h3>
         <ul>
           {
-            topPopulars.map(artis => (
+            topPopulars && topPopulars.map(artis => (
               <li key={artis.id} className="list-item">
                 <a href="#">
                   <div className='left-content'>

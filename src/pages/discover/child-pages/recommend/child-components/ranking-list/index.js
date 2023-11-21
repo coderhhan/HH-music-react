@@ -36,7 +36,7 @@ const RankingList = memo(() => {
       />
       <div className='content top_list_bg'>
         {
-          topList.map((header, index) => {
+          topList && topList.map((header, index) => {
             if (!header.playlist) {
               return ''
             }

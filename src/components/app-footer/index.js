@@ -22,7 +22,7 @@ const HHAppFooter = memo(() => {
       <div className='wrap-v2'>
         <ul className='footer-icons'>
           {
-            footerIcon.map(item => {
+            footerIcon && footerIcon.map(item => {
               return (
                 <li className='icon' key={item.title}>
                   <a href={item.link} target="blank"
@@ -39,7 +39,7 @@ const HHAppFooter = memo(() => {
         <FooterBottom className='wrap-v2'>
           <p>
             {
-              footerLinks.map((item, index) => {
+              footerLinks && footerLinks.map((item, index) => {
                 return links(item, index)
               })
             }

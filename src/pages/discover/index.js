@@ -13,7 +13,7 @@ const Discover = memo((props) => {
         <ToMenuWrapper className='wrap-v1'>
           <ul>
             {
-              dicoverMenu.map(item => {
+              dicoverMenu && dicoverMenu.map(item => {
                 return (
                   <li key={item.link}>
                     <NavLink to={item.link}>{item.title}</NavLink>
