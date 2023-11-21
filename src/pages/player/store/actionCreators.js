@@ -131,6 +131,10 @@ export const changePlaySong = (tag) => {
         while (index === currentSongIndex && playList.length > 0) {
           currentSongIndex = Math.floor(Math.random() * playList.length);
         }
+        break
+      }
+      default: {
+        break
       }
     }
 
